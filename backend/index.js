@@ -31,9 +31,12 @@ app.get("/", (req, res) => {
 app.get('/data', (req, res) => {
   connection.query('SELECT * FROM scorestudent', (err, results) => {
     if (err) {
-      res.status(500).send(err);
+      console.error("Error reading data: " + err.stack);
+      return res.status(400).json({
+        messsage: "Error fetching users"
+      });
     } else {
-      res.json(results);
+      return res.status(200).json(results)
     }
   });
 });
