@@ -24,6 +24,10 @@ connection.connect(err => {
   console.log('Connected to database.');
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 app.get('/data', (req, res) => {
   connection.query('SELECT * FROM scorestudent', (err, results) => {
     if (err) {
@@ -35,7 +39,14 @@ app.get('/data', (req, res) => {
 });
 
 app.post('/data', (req, res) => {
-  const { id, first_name, last_name, math_score, science_score, english_score } = req.body;
+  const {
+    id,
+    first_name,
+    last_name,
+    math_score,
+    science_score,
+    english_score
+  } = req.body;
   const query = 'INSERT INTO scorestudent (id, first_name, last_name, math_score, science_score, english_score) VALUES (?, ?, ?, ?, ?, ?)';
   connection.query(query, [id, first_name, last_name, math_score, science_score, english_score], (err, results) => {
     if (err) {
