@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './styles.css'; // Import CSS file if needed
 
 const Database = () => {
     // State for managing student data and modal visibility
