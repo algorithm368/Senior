@@ -3,7 +3,7 @@ services:
     env: node
     buildCommand: npm install 
     startCommand: node server.js
-    publishDirectory: ./dist
+    publishDirectory: ./backend
     envVars:
       NODE_ENV: production
       PORT: 3000
