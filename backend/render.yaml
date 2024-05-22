@@ -1,0 +1,13 @@
+services:
+  - name: web
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: <seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com>
+      DB_PORT: <3306>
+      DB_USER: <root>
+      DB_PASSWORD: <12345678>
+      DB_NAME: <project>
