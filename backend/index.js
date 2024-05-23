@@ -49,7 +49,7 @@ app.post('/test', (req, res) => {
   // Assuming only one student data is received in the array
   const student = data[0];
 
-  const query = 'INSERT INTO scorestudent (student_id, first_name, last_name, math_score, science_score, english_score) VALUES (?, ?, ?, ?, ?, ?)';
+  const query = 'INSERT INTO scorestudent (id, first_name, last_name, math_score, science_score, english_score) VALUES (?, ?, ?, ?, ?, ?)';
   const values = [student.student_id, student.first_name, student.last_name, student.math_score, student.science_score, student.english_score];
 
   connection.query(query, values, (err, results) => {
