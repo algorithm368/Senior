@@ -39,23 +39,29 @@ app.get('/test', (req, res) => {
 });
 
 app.post('/test', (req, res) => {
-  const {
-    id,
-    first_name,
-    last_name,
-    math_score,
-    science_score,
-    english_score
-  } = req.body;
-  const query = 'INSERT INTO scorestudent (id, first_name, last_name, math_score, science_score, english_score) VALUES (?, ?, ?, ?, ?, ?)';
-  connection.query(query, [id, first_name, last_name, math_score, science_score, english_score], (err, results) => {
+  const data = req.body; // assuming req.body contains the array of data
+
+  // Validate that data is not empty and has the required fields
+  if (!Array.isArray(data) || !data.length || !data[0].first_name || !data[0].last_name) {
+    return res.status(400).send({ error: "Invalid data" });
+  }
+
+  // Assuming only one student data is received in the array
+  const student = data[0];
+
+  const query = 'INSERT INTO scorestudent (student_id, first_name, last_name, math_score, science_score, english_score) VALUES (?, ?, ?, ?, ?, ?)';
+  const values = [student.student_id, student.first_name, student.last_name, student.math_score, student.science_score, student.english_score];
+
+  connection.query(query, values, (err, results) => {
     if (err) {
+      console.error(err);
       res.status(500).send(err);
     } else {
-      res.status(201).send('Data inserted successfully');
+      res.json({ success: true, results });
     }
   });
 });
+
 
 app.get("/readData", async (req, res) => {
   try {
@@ -204,7 +210,6 @@ app.get("/search/:id", async (req, res) => {
 
 app.post("/create", async (req, res) => {
   const students = req.body;
-  console.log(students);
 
   if (!Array.isArray(students) || students.length === 0) {
     return res.status(400).json({

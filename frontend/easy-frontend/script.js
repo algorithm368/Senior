@@ -148,18 +148,19 @@ function submitInsertForm() {
     science_score: mySci,
     english_score: myEng
   };
-  var arr = [data]
-  console.log(arr);
+  
+  console.log([data]);
+
   fetch('https://senior-production-43fc.up.railway.app/test', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(arr)
+      body: JSON.stringify([data])
     })
     .then(response => response.json())
-    .then(arr => {
-      console.log('Success:', arr);
+    .then(result => {
+      console.log('Success:', result);
     })
     .catch((error) => {
       console.error('Error:', error);
