@@ -150,7 +150,7 @@ function submitInsertForm() {
   };
   var arr = [data]
   console.log(arr);
-  fetch('https://senior-production-43fc.up.railway.app/data', {
+  fetch('https://senior-production-43fc.up.railway.app/test', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -164,7 +164,7 @@ function submitInsertForm() {
     .catch((error) => {
       console.error('Error:', error);
     });
-  location.reload();
+  // location.reload();
   $("#insertModal").modal("hide");
 }
 

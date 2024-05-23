@@ -204,6 +204,7 @@ app.get("/search/:id", async (req, res) => {
 
 app.post("/create", async (req, res) => {
   const students = req.body;
+  console.log(students);
 
   if (!Array.isArray(students) || students.length === 0) {
     return res.status(400).json({
