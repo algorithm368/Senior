@@ -149,14 +149,13 @@ function submitInsertForm() {
     english_score: myEng
   };
   
-  console.log([data]);
 
   fetch('https://senior-production-43fc.up.railway.app/test', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify([data])
+      body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(result => {
