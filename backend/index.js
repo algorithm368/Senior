@@ -1,7 +1,7 @@
 var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2');
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8000
 
 const connection = mysql.createConnection({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
