@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
-import dataBase from './dataBase'
-import LoginForm from './LoginForm';
+import LoginForm from './components/LoginForm';
 
 
 function App() {
