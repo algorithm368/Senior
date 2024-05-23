@@ -40,11 +40,6 @@ app.get('/test', (req, res) => {
 
 app.post('/test', (req, res) => {
   const data = req.body; // assuming req.body contains the array of data
-  
-  // Validate that data is not empty and has the required fields
-  if (!Array.isArray(data) || !data.length) {
-    return res.status(400).send({ error: "Invalid data" });
-  }
 
   // Assuming only one student data is received in the array
   const student = data[0];
