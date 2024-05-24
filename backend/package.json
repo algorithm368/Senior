@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "install:prod": "npm install --omit=dev",
+    "build": "node index.js",
     "start": "node index.js",
     "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
