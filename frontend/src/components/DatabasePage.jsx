@@ -1,6 +1,7 @@
 // DatabasePage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './DatabasePage.css'
 
 function DatabasePage() {
   const [data, setData] = useState([]);

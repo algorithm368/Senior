@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    height: 100vh; /* Set the container height to the viewport height */
+  }
+  
+  /* Additional styles for the content */
+  .content {
+    text-align: center;
+  }
+  
+  /* Style for the form inputs */
+  form {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the table */
+  table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table horizontally */
+  }
+  
