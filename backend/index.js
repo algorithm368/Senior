@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json())
 
 
-const connector = new MySQLConnector({
+const connector = mysql.createConnection({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
   user: 'root',
   database: 'project',
@@ -29,33 +29,6 @@ connector.connect(err => {
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
-app.get('/test', (req, res) => {
-  connector.query('SELECT * FROM project.scorestudent', (err, results) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.json(results);
-    }
-  });
-});
-
-app.post('/test', (req, res) => {
-  const student = req.body; // assuming req.body contains the student data
-
-  const query = 'INSERT INTO scorestudent (id, first_name, last_name, math_score, science_score, english_score) VALUES (?, ?, ?, ?, ?, ?)';
-  const values = [student.student_id, student.first_name, student.last_name, student.math_score, student.science_score, student.english_score];
-
-  connector.query(query, values, (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send(err);
-    } else {
-      res.json({ success: true, results });
-    }
-  });
-});
-
 
 app.get("/readData", async (req, res) => {
   try {
@@ -380,20 +353,24 @@ app.get('/queryData', (req, res) => {
 app.post('/insert_user', (req, res) => {
   const userData = req.body;
   const values = [
-      userData.oauth_provider,
-      userData.oauth_uid,
-      userData.first_name,
-      userData.last_name,
-      userData.email,
-      userData.picture
+    userData.oauth_provider,
+    userData.oauth_uid,
+    userData.first_name,
+    userData.last_name,
+    userData.email,
+    userData.picture
   ];
 
   connector.insert('users', values, (error, results) => {
-      if (error) {
-          res.status(500).json({ message: 'An error occurred while saving data in the database.' });
-      } else {
-          res.status(200).json({ message: 'successfully created!' });
-      }
+    if (error) {
+      res.status(500).json({
+        message: 'An error occurred while saving data in the database.'
+      });
+    } else {
+      res.status(200).json({
+        message: 'successfully created!'
+      });
+    }
   });
 });
 
