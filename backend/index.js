@@ -7,7 +7,7 @@ const MySQLConnector = require("./MySQLConnector");
 const connector = mysql.createConnection({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
   user: 'root',
-  database: 'scorestudent',
+  database: 'project',
   password: '12345678',
   port: 3306, // Default MySQL port
   connectionLimit: 10 // Adjust as needed
