@@ -44,27 +44,6 @@ app.get('/getdata', (req, res) => {
   });
 });
 
-app.get("/readData", async (req, res) => {
-  try {
-    connector.query('SELECT * FROM project.scorestudent', (err, result,) => {
-      if (err) {
-        console.error("Error reading data: " + err.stack);
-        return res.status(400).json({
-          message: "Error fetching users"
-        });
-      }
-      console.log("Data received from MySQL:");
-      console.log(result);
-      return res.status(200).json(result);
-    });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      message: "Internal Server Error"
-    });
-  }
-});
-
 app.put("/update/:id", async (req, res) => {
   const studentId = req.params.id;
   const {
