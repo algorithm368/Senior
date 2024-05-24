@@ -3,20 +3,19 @@ var cors = require('cors')
 const mysql = require('mysql2');
 const port = process.env.PORT || 8000
 
-const connection = mysql.createConnection({
-  host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
-  user: 'root',
-  database: 'project',
-  password: '12345678',
-  port: 3306, // Default MySQL port
-  connectionLimit: 10 // Adjust as needed
+const connector = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port:'3306'
 });
 
 var app = express()
 app.use(cors())
 app.use(express.json())
 
-connection.connect(err => {
+connector.connect(err => {
   if (err) {
     console.error('Database connection failed: ' + err.stack);
     return;
@@ -44,7 +43,7 @@ app.post('/test', (req, res) => {
   const query = 'INSERT INTO scorestudent (id, first_name, last_name, math_score, science_score, english_score) VALUES (?, ?, ?, ?, ?, ?)';
   const values = [student.student_id, student.first_name, student.last_name, student.math_score, student.science_score, student.english_score];
 
-  connection.query(query, values, (err, results) => {
+  connector.query(query, values, (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send(err);
