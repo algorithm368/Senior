@@ -2,14 +2,14 @@ var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2');
 const MySQLConnector = require("./MySQLConnector");
-const port = process.env.PORT || 8000
 
 const connector = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT
+  host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
+  user: 'root',
+  database: 'scorestudent',
+  password: '12345678',
+  port: 3306, // Default MySQL port
+  connectionLimit: 10 // Adjust as needed
 });
 
 var app = express()
@@ -395,6 +395,6 @@ app.post('/insert_user', (req, res) => {
   });
 });
 
-app.listen(port, () => {
+app.listen(8000, () => {
   console.log(`Server is running at senior-production-43fc.up.railway.app`);
 });

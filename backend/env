@@ -1,5 +1,5 @@
-DB_HOST=seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com
-DB_USER=root
-DB_PASSWORD=12345678
-DB_NAME=project
-DB_PORT=3306
+DB_HOST = seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com
+DB_USER = root
+DB_PASSWORD = 12345678
+DB_NAME = scorestudent
+DB_PORT = 3306
