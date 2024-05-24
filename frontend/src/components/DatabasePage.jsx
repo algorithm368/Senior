@@ -61,18 +61,20 @@ function DatabasePage() {
     <div>
       <h2>Welcome to Database</h2>
       <div>
-        <button type="button" onClick={handleSubmit}>
-          Insert
-        </button>
-        <button type="button">Query</button>
-        <button type="button">Update</button>
-        <button type="button">Delete</button>
-        <button type="button" onClick={fetchData}>
-          Show Data
-        </button>
-        <button type="button" onClick={() => setData([])}>
-          Clear
-        </button>
+        <div className="button-group">
+          <button type="button" onClick={handleSubmit}>
+            Insert
+          </button>
+          <button type="button">Query</button>
+          <button type="button">Update</button>
+          <button type="button">Delete</button>
+          <button type="button" onClick={fetchData}>
+            Show Data
+          </button>
+          <button type="button" onClick={() => setData([])}>
+            Clear
+          </button>
+        </div>
       </div>
       <br />
       <div className="table-container">
