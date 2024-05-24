@@ -2,13 +2,14 @@ var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2');
 const port = 3000;
+const MySQLConnector = require("./MySQLConnector");
 
 var app = express()
 app.use(cors())
 app.use(express.json())
 
 
-const connector = mysql.createConnection({
+const connector = new MySQLConnector({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
   user: 'root',
   database: 'project',
