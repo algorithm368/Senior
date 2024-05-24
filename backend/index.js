@@ -1,5 +1,6 @@
 var express = require('express')
 var cors = require('cors')
+const mysql = require('mysql2');
 const port = process.env.PORT || 5000
 const MySQLConnector = require("./MySQLConnector");
 
@@ -32,49 +33,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get('/test', (req, res) => {
+// use for get all data in table
+app.get('/getdata', (req, res) => {
   connector.query('SELECT * FROM project.scorestudent', (err, results) => {
     if (err) {
       res.status(500).send(err);
     } else {
       res.json(results);
     }
-  });
-});
-
-app.get("/readData", async (req, res) => {
-  try {
-    connector.query('SELECT * FROM project.scorestudent', (err, result,) => {
-      if (err) {
-        console.error("Error reading data: " + err.stack);
-        return res.status(400).json({
-          message: "Error fetching users"
-        });
-      }
-      console.log("Data received from MySQL:");
-      console.log(result);
-      return res.status(200).json(result);
-    });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      message: "Internal Server Error"
-    });
-  }
-});
-
-app.get("/data", (req, res) => {
-  const sql = "SELECT * FROM project.scorestudent";
-
-  connecter.query(sql, (error, results, fields) => {
-    if (error) {
-      console.error("Error fetching data:", error);
-      res.status(500).json({
-        error: "Error fetching data"
-      });
-      return;
-    }
-    res.json(results);
   });
 });
 
