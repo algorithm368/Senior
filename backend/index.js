@@ -1,7 +1,6 @@
 var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2');
-const MySQLConnector = require("./MySQLConnector");
 const port = 3000;
 
 var app = express()
@@ -9,7 +8,7 @@ app.use(cors())
 app.use(express.json())
 
 
-const connector = mysql.createPool({
+const connector = mysql.createConnection({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
   user: 'root',
   database: 'project',
@@ -21,18 +20,12 @@ const connector = mysql.createPool({
   
 });
 
-connecter.getConnection((err, connection) => {
+connector.connect(err => {
   if (err) {
-    console.error('Error connecting to MySQL database: ' + err.stack);
+    console.error('Database connection failed: ' + err.stack);
     return;
   }
-  
-  console.log('Connected to MySQL database as id ' + connection.threadId);
-
-  // Perform database operations here
-  
-  // Release the connection back to the pool
-  connection.release();
+  console.log('Connected to database as id ' + connector.threadId);
 });
 
 app.get("/", (req, res) => {
