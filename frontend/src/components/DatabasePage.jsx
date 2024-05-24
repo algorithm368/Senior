@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './DatabasePage.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./DatabasePage.css";
 
 function DatabasePage() {
   const [data, setData] = useState([]);
   const [form, setForm] = useState({
-    id: '',
-    first_name: '',
-    last_name: '',
-    math_score: '',
-    science_score: '',
-    english_score: ''
+    id: "",
+    first_name: "",
+    last_name: "",
+    math_score: "",
+    science_score: "",
+    english_score: "",
   });
 
   useEffect(() => {
@@ -18,12 +18,13 @@ function DatabasePage() {
   }, []);
 
   const fetchData = () => {
-    axios.get('https://senior-project-production-336b.up.railway.app/getData')
-      .then(response => {
+    axios
+      .get("https://senior-project-production-336b.up.railway.app/getData")
+      .then((response) => {
         setData(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   };
 
@@ -34,21 +35,25 @@ function DatabasePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://senior-project-production-336b.up.railway.app/getData', form)
-      .then(response => {
+    axios
+      .post(
+        "https://senior-project-production-336b.up.railway.app/getData",
+        form
+      )
+      .then((response) => {
         console.log(response.data);
         fetchData(); // Refresh data after insert
         setForm({
-          id: '',
-          first_name: '',
-          last_name: '',
-          math_score: '',
-          science_score: '',
-          english_score: ''
+          id: "",
+          first_name: "",
+          last_name: "",
+          math_score: "",
+          science_score: "",
+          english_score: "",
         });
       })
-      .catch(error => {
-        console.error('Error inserting data:', error);
+      .catch((error) => {
+        console.error("Error inserting data:", error);
       });
   };
 
@@ -56,12 +61,18 @@ function DatabasePage() {
     <div>
       <h2>Welcome to Database</h2>
       <div>
-        <button type="button" onClick={handleSubmit}>Insert</button>
+        <button type="button" onClick={handleSubmit}>
+          Insert
+        </button>
         <button type="button">Query</button>
         <button type="button">Update</button>
         <button type="button">Delete</button>
-        <button type="button" onClick={fetchData}>Show Data</button>
-        <button type="button" onClick={() => setData([])}>Clear</button>
+        <button type="button" onClick={fetchData}>
+          Show Data
+        </button>
+        <button type="button" onClick={() => setData([])}>
+          Clear
+        </button>
       </div>
       <br />
       <div className="table-container">
