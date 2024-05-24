@@ -9,13 +9,16 @@ app.use(cors())
 app.use(express.json())
 
 
-const connector = mysql.createConnection({
+const connector = mysql.createPool({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
   user: 'root',
   database: 'project',
   password: '12345678',
-  port: 3306, // Default MySQL port
-  connectionLimit: 10 // Adjust as needed
+  port: 3306, 
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+  
 });
 
 connector.connect(err => {
