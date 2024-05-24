@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 
 app.get("/readData", async (req, res) => {
   try {
-    connector.query("SELECT * FROM scorestudent", (err, result, fields) => {
+    connector.query("SELECT * FROM project.scorestudent", (err, result, fields) => {
       if (err) {
         console.error("Error reading data: " + err.stack);
         return res.status(400).json({
