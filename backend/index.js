@@ -222,6 +222,7 @@ app.post("/create", async (req, res) => {
   }
 });
 
+
 app.post("/insertData", async (req, res) => {
   const student = req.body;
   if (!student) {
