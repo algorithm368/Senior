@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './DatabasePage.css';
+import InsertModal from './InsertModal'; // import Component Modal ที่สร้างไว้
 
 function DatabasePage() {
   const [data, setData] = useState([]);
@@ -91,41 +92,14 @@ function DatabasePage() {
           </tbody>
         </table>
       </div>
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
-            <h2>Insert Data</h2>
-            <form onSubmit={handleSubmit}>
-              <label>
-                ID:
-                <input type="text" name="id" value={formData.id} onChange={handleChange} />
-              </label>
-              <label>
-                First Name:
-                <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
-              </label>
-              <label>
-                Last Name:
-                <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
-              </label>
-              <label>
-                Math Score:
-                <input type="text" name="math_score" value={formData.math_score} onChange={handleChange} />
-              </label>
-              <label>
-                Science Score:
-                <input type="text" name="science_score" value={formData.science_score} onChange={handleChange} />
-              </label>
-              <label>
-                English Score:
-                <input type="text" name="english_score" value={formData.english_score} onChange={handleChange} />
-              </label>
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* ใช้ Component Modal สำหรับการ Insert ข้อมูล */}
+      <InsertModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleSubmit}
+        formData={formData}
+        handleChange={handleChange}
+      />
     </div>
   );
 }
