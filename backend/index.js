@@ -3,6 +3,7 @@ var cors = require('cors')
 const mysql = require('mysql2');
 const MySQLConnector = require("./MySQLConnector");
 
+
 const connector = mysql.createConnection({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
   user: 'root',
@@ -21,7 +22,7 @@ connector.connect(err => {
     console.error('Database connection failed: ' + err.stack);
     return;
   }
-  console.log('Connected to database.');
+  console.log('Connected to database as id ' + connection.threadId);
 });
 
 app.get("/", (req, res) => {
