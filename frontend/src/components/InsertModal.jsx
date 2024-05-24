@@ -28,7 +28,7 @@ function InsertModal({ isOpen, onClose, onSubmit }) {
       if (!response.ok) {
         throw new Error('Failed to submit data');
       }
-      const data = await response.json();
+      const data = [await response.json()];
       console.log('Data submitted successfully:', data);
       onSubmit();
       onClose();
