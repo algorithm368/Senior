@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   const fetchData = () => {
-    axios.get('senior-production-43fc.up.railway.app/data')
+    axios.get('senior-project-production-336b.up.railway.app/data')
       .then(response => {
         setData(response.data);
       })
@@ -36,7 +36,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('senior-production-43fc.up.railway.app/data', form)
+    axios.post('senior-project-production-336b.up.railway.app/data', form)
       .then(response => {
         console.log(response.data);
         fetchData(); // Refresh data after insert
