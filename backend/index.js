@@ -2,9 +2,14 @@ var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2');
 const MySQLConnector = require("./MySQLConnector");
+const port = 3000;
+
+var app = express()
+app.use(cors())
+app.use(express.json())
 
 
-const connector = mysql.createConnection({
+const connector = new MySQLConnector({
   host: 'seniorproject.c3ssu4aw8v1d.ap-southeast-2.rds.amazonaws.com',
   user: 'root',
   database: 'project',
@@ -13,16 +18,12 @@ const connector = mysql.createConnection({
   connectionLimit: 10 // Adjust as needed
 });
 
-var app = express()
-app.use(cors())
-app.use(express.json())
-
 connector.connect(err => {
   if (err) {
     console.error('Database connection failed: ' + err.stack);
     return;
   }
-  console.log('Connected to database as id ' + connection.threadId);
+  console.log('Connected to database as id ' + connector.threadId);
 });
 
 app.get("/", (req, res) => {
@@ -80,7 +81,7 @@ app.get("/readData", async (req, res) => {
 app.get("/data", (req, res) => {
   const sql = "SELECT * FROM project.scorestudent";
 
-  connection.query(sql, (error, results, fields) => {
+  connecter.query(sql, (error, results, fields) => {
     if (error) {
       console.error("Error fetching data:", error);
       res.status(500).json({
@@ -396,6 +397,6 @@ app.post('/insert_user', (req, res) => {
   });
 });
 
-app.listen(8000, () => {
+app.listen(port, () => {
   console.log(`Server is running at senior-production-43fc.up.railway.app`);
 });
