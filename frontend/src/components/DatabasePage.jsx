@@ -1,4 +1,3 @@
-// DatabasePage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './DatabasePage.css'
@@ -19,7 +18,7 @@ function DatabasePage() {
   }, []);
 
   const fetchData = () => {
-    axios.get('https://senior-project-production-336b.up.railway.app/test')
+    axios.get('https://senior-project-production-336b.up.railway.app/getData')
       .then(response => {
         setData(response.data);
       })
@@ -35,7 +34,7 @@ function DatabasePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://senior-project-production-336b.up.railway.app/test', form)
+    axios.post('https://senior-project-production-336b.up.railway.app/getData', form)
       .then(response => {
         console.log(response.data);
         fetchData(); // Refresh data after insert
@@ -65,30 +64,32 @@ function DatabasePage() {
         <button type="button" onClick={() => setData([])}>Clear</button>
       </div>
       <br />
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Math Score</th>
-            <th>Science Score</th>
-            <th>English Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.id}</td>
-              <td>{item.first_name}</td>
-              <td>{item.last_name}</td>
-              <td>{item.math_score}</td>
-              <td>{item.science_score}</td>
-              <td>{item.english_score}</td>
+      <div className="table-container">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Math Score</th>
+              <th>Science Score</th>
+              <th>English Score</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.id}</td>
+                <td>{item.first_name}</td>
+                <td>{item.last_name}</td>
+                <td>{item.math_score}</td>
+                <td>{item.science_score}</td>
+                <td>{item.english_score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
