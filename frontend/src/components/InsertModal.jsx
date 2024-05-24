@@ -18,7 +18,7 @@ function InsertModal({ isOpen, onClose, onSubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://senior-project-production-336b.up.railway.app/create', {
+      const response = await fetch('https://senior-project-production-336b.up.railway.app/create/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
