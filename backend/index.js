@@ -21,12 +21,18 @@ const connector = mysql.createPool({
   
 });
 
-connector.connect(err => {
+connecter.getConnection((err, connection) => {
   if (err) {
-    console.error('Database connection failed: ' + err.stack);
+    console.error('Error connecting to MySQL database: ' + err.stack);
     return;
   }
-  console.log('Connected to database as id ' + connector.threadId);
+  
+  console.log('Connected to MySQL database as id ' + connection.threadId);
+
+  // Perform database operations here
+  
+  // Release the connection back to the pool
+  connection.release();
 });
 
 app.get("/", (req, res) => {
