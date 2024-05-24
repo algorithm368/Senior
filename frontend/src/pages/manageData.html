@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Database</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Welcome to Database</h2>
+
+        <div>
+            <button type="button" class="btn btn-default" onclick="openInsertModal()">
+                <span class="glyphicon glyphicon-arrow-up"></span> Insert
+            </button>
+            <button type="button" class="btn btn-default" onclick="openQueryModal()">
+                <span class="glyphicon glyphicon-search"></span> Query
+            </button>
+            <button type="button" class="btn btn-default" onclick="openUpdateModal()">
+                <span class="glyphicon glyphicon-wrench"></span> Update
+            </button>
+            <button type="button" class="btn btn-default" onclick="openDeleteModal()">
+                <span class="glyphicon glyphicon-trash"></span> Delete
+            </button>
+            <button type="button" class="btn btn-default" onclick="location.reload();">
+                <span class="glyphicon glyphicon-refresh"></span> Clear
+            </button>
+        </div>
+        <br>
+        <div class="table-container" id="tableContainer"></div>
+    </div>
+
+    <!-- Insert Modal -->
+    <div id="insertModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Insert Data</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="insertForm">
+                        <div class="form-group">
+                            <label for="name">student_id:</label>
+                            <input type="text" class="form-control" id="student_id" name="student_id">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">first_name:</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">last_name:</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">math_score:</label>
+                            <input type="text" class="form-control" id="math_score" name="math_score">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">science_score:</label>
+                            <input type="text" class="form-control" id="science_score" name="science_score">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">english_score:</label>
+                            <input type="text" class="form-control" id="english_score" name="english_score">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitInsertForm()">Insert</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Query Modal -->
+    <div class="modal fade" id="queryModal" tabindex="-1" role="dialog" aria-labelledby="queryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="queryModalLabel">Query Student Scores</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="score_type">Select Score Type</label>
+                            <select id="score_type" class="form-control">
+                                <option value="math_score">Math Score</option>
+                                <option value="science_score">Science Score</option>
+                                <option value="english_score">English Score</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="score_value">Score Value</label>
+                            <input type="number" class="form-control" id="score_value" placeholder="Enter score value">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="location.reload();">Clear</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="searchStudentScore()">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Query Results Container -->
+    <div id="queryResultsContainer"></div>
+
+    <!-- Update Modal -->
+    <div id="updateModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Student Data</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="search_student_id">Search Student ID:</label>
+                        <input id="search_student_id" type="text" class="form-control" name="search_student_id">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="searchAndUpdateStudent()">Search</button>
+
+                    <form id="updateForm">
+                        <div class="form-group">
+                            <label for="student_id_update_modal">Student ID:</label>
+                            <input id="student_id_update_modal" type="text" class="form-control"
+                                name="student_id_update_modal">
+                        </div>
+                        <div class="form-group">
+                            <label for="first_name_update_modal">First Name:</label>
+                            <input id="first_name_update_modal" type="text" class="form-control"
+                                name="first_name_update_modal">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name_update_modal">Last Name:</label>
+                            <input id="last_name_update_modal" type="text" class="form-control"
+                                name="last_name_update_modal">
+                        </div>
+                        <div class="form-group">
+                            <label for="math_score_update_modal">Math Score:</label>
+                            <input id="math_score_update_modal" type="number" class="form-control"
+                                name="math_score_update_modal">
+                        </div>
+                        <div class="form-group">
+                            <label for="science_score_update_modal">Science Score:</label>
+                            <input id="science_score_update_modal" type="number" class="form-control"
+                                name="science_score_update_modal">
+                        </div>
+                        <div class="form-group">
+                            <label for="english_score_update_modal">English Score:</label>
+                            <input id="english_score_update_modal" type="number" class="form-control"
+                                name="english_score_update_modal">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitUpdateForm()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Data</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="deleteForm">
+                        <div class="form-group">
+                            <label for="student_id_modal">Student ID:</label>
+                            <input id="student_id_modal" type="text" class="form-control" name="student_id_modal">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitDeleteForm()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/manageData.js"></script>
+</body>
+
+</html>

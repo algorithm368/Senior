@@ -1,0 +1,76 @@
+h1 {
+    font-family: "Garamond";
+}
+
+body {
+    font-family: "Garamond";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input-tab {
+    display: block;
+    border-radius: 7px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.upload-download-button {
+    display: flex;
+}
+
+
+input {
+    border: none;
+    border-radius: 7px;
+    padding: 10px 20px;
+    display: none;
+}            
+
+button {
+    background-color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 16px 20px;
+    font-family: "Garamond";
+}
+
+button:hover {
+    background-color: gray;
+    color: #fff;
+}
+
+#table-container {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+    border-radius: 7px;
+    margin: 20px;
+    padding: 20px;
+}
+
+#placeholder-text {
+    font-size: 18px; /* Adjust the font size */
+    color: #888; /* Adjust the color */
+    margin: 0; /* Remove default margin */
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

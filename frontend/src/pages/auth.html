@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <title>Google Authentication</title>
+
+</head>
+
+<body>
+    <h1>Google Authentication</h1>
+    <button onclick="signIn()">Sign in with Google</button>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+
+    <script>
+        function signIn() {
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '176915472690-fd1ks98ttrnl59a3rdnss0btptobr463.apps.googleusercontent.com',
+                    scope: 'email',
+                    redirect_url: 'http://127.0.0.1:5500/pages/manageData.html',
+                    include_granted_scopes: 'true',
+                    state: 'pass-through-value',
+                    response_type: 'token'
+                });
+                auth2.signIn().then(function (googleUser) {
+                    var profile = googleUser.getBasicProfile();
+                    console.log('ID: ' + profile.getId());
+                    console.log('Full Name: ' + profile.getName());
+                    console.log('Given Name: ' + profile.getGivenName());
+                    console.log('Family Name: ' + profile.getFamilyName());
+                    console.log('Image URL: ' + profile.getImageUrl());
+                    console.log('Email: ' + profile.getEmail());
+
+                    var userData = {
+                        oauth_provider: 'google',
+                        oauth_uid: profile.getId(),
+                        first_name: profile.getGivenName(),
+                        last_name: profile.getFamilyName(),
+                        email: profile.getEmail(),
+                        picture: profile.getImageUrl()
+                    };
+
+                    fetch('http://localhost:3000/insert_user', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(userData)
+                    })
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
