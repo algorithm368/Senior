@@ -1,5 +1,6 @@
 var express = require('express')
 var cors = require('cors')
+const mysql = require('mysql2');
 const port = process.env.PORT || 5000
 const MySQLConnector = require("./MySQLConnector");
 
@@ -32,7 +33,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get('/test', (req, res) => {
+// use for get all data in table
+app.get('/getdata', (req, res) => {
   connector.query('SELECT * FROM project.scorestudent', (err, results) => {
     if (err) {
       res.status(500).send(err);
@@ -61,21 +63,6 @@ app.get("/readData", async (req, res) => {
       message: "Internal Server Error"
     });
   }
-});
-
-app.get("/data", (req, res) => {
-  const sql = "SELECT * FROM project.scorestudent";
-
-  connecter.query(sql, (error, results, fields) => {
-    if (error) {
-      console.error("Error fetching data:", error);
-      res.status(500).json({
-        error: "Error fetching data"
-      });
-      return;
-    }
-    res.json(results);
-  });
 });
 
 app.put("/update/:id", async (req, res) => {
