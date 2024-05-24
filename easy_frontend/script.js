@@ -2,7 +2,11 @@ let currentCell;
 let startCell;
 
 // URL of the JSON file
+<<<<<<< Updated upstream:easy_frontend/script.js
 const jsonURL = "https://senior-production-43fc.up.railway.app/data";
+=======
+const jsonURL = "https://senior-project-production-336b.up.railway.app/getdata";
+>>>>>>> Stashed changes:easy-frontend/script.js
 
 // Function to fetch JSON data
 function fetchJSONData(url) {
@@ -140,7 +144,7 @@ function submitInsertForm() {
   var myEng = document.getElementById("english_score").value;
 
   var data = {
-    student_id: myId,
+    id: myId,
     first_name: myFirst,
     last_name: myLast,
     math_score: myMath,
