@@ -57,7 +57,7 @@ app.post('/test', (req, res) => {
 
 app.get("/readData", async (req, res) => {
   try {
-    connector.query("SELECT * FROM scoreStudent", (err, result, fields) => {
+    connector.query("SELECT * FROM project.scorestudent", (err, result, fields) => {
       if (err) {
         console.error("Error reading data: " + err.stack);
         return res.status(400).json({
@@ -77,7 +77,7 @@ app.get("/readData", async (req, res) => {
 });
 
 app.get("/data", (req, res) => {
-  const sql = "SELECT * FROM scoreStudent";
+  const sql = "SELECT * FROM project.scorestudent";
 
   connection.query(sql, (error, results, fields) => {
     if (error) {
