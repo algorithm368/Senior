@@ -32,9 +32,19 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get('/test', (req, res) => {
+  connector.query('SELECT * FROM project.scorestudent', (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.get("/readData", async (req, res) => {
   try {
-    connector.query("SELECT * FROM project.scorestudent", (err, result, fields) => {
+    connector.query('SELECT * FROM project.scorestudent', (err, result,) => {
       if (err) {
         console.error("Error reading data: " + err.stack);
         return res.status(400).json({
