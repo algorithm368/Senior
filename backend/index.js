@@ -1,9 +1,10 @@
 var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2');
+const MySQLConnector = require("./MySQLConnector");
 const port = process.env.PORT || 8000
 
-const connector = mysql.createConnection({
+const connector = new MySQLConnector({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
