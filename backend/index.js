@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  connection.query('SELECT * FROM project.scorestudent', (err, results) => {
+  connector.query('SELECT * FROM project.scorestudent', (err, results) => {
     if (err) {
       res.status(500).send(err);
     } else {
