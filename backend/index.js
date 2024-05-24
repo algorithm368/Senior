@@ -1,6 +1,5 @@
 var express = require('express')
 var cors = require('cors')
-const mysql = require('mysql2');
 const MySQLConnector = require("./MySQLConnector");
 const port = process.env.PORT || 8000
 
