@@ -222,8 +222,8 @@ app.post("/create", async (req, res) => {
 
       await new Promise((resolve, reject) => {
         connector.insert(
-          "scoreStudent", {
-            student_id: student_id,
+          "project.scorestudent", {
+            id: student_id,
             first_name: first_name,
             last_name: last_name,
             math_score: math_score,
