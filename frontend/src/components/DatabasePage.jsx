@@ -1,48 +1,107 @@
-import React, { useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
-import DataTable from './DataTable';
-import InsertModal from './InsertModal';
-import QueryModal from './QueryModal';
-import UpdateModal from './UpdateModal';
-import DeleteModal from './DeleteModal';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './DatabasePage.css';
+import InsertModal from './InsertModal'; // import Component Modal ที่สร้างไว้
 
-function App() {
-  const [showInsert, setShowInsert] = useState(false);
-  const [showQuery, setShowQuery] = useState(false);
-  const [showUpdate, setShowUpdate] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
+function DatabasePage() {
+  const [data, setData] = useState([]);
+  const [formData, setFormData] = useState({
+    id: '',
+    first_name: '',
+    last_name: '',
+    math_score: '',
+    science_score: '',
+    english_score: ''
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios.get('https://senior-project-production-336b.up.railway.app/getData')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    axios.post('https://senior-project-production-336b.up.railway.app/insertData', formData)
+      .then(response => {
+        console.log(response.data);
+        fetchData(); // Refresh data after insert
+        setIsModalOpen(false); // Close modal after submit
+        setFormData({
+          id: '',
+          first_name: '',
+          last_name: '',
+          math_score: '',
+          science_score: '',
+          english_score: ''
+        });
+      })
+      .catch(error => {
+        console.error('Error inserting data:', error);
+      });
+  };
 
   return (
-    <Container>
+    <div>
       <h2>Welcome to Database</h2>
-      <div className="mb-2">
-        <Button variant="secondary" onClick={() => setShowInsert(true)}>
-          <span className="glyphicon glyphicon-arrow-up"></span> Insert
-        </Button>{' '}
-        <Button variant="secondary" onClick={() => setShowQuery(true)}>
-          <span className="glyphicon glyphicon-search"></span> Query
-        </Button>{' '}
-        <Button variant="secondary" onClick={() => setShowUpdate(true)}>
-          <span className="glyphicon glyphicon-wrench"></span> Update
-        </Button>{' '}
-        <Button variant="secondary" onClick={() => setShowDelete(true)}>
-          <span className="glyphicon glyphicon-trash"></span> Delete
-        </Button>{' '}
-        <Button variant="secondary" onClick={() => window.location.reload()}>
-          <span className="glyphicon glyphicon-refresh"></span> Clear
-        </Button>{' '}
+      <div className="button-group">
+        <button type="button" onClick={() => setIsModalOpen(true)}>Insert</button>
+        <button type="button">Query</button>
+        <button type="button">Update</button>
+        <button type="button">Delete</button>
+        <button type="button" onClick={fetchData}>Show Data</button>
+        <button type="button" onClick={() => setData([])}>Clear</button>
       </div>
       <br />
-      <div id="tableContainer">
-      <DataTable />
+      <div className="table-container">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Math Score</th>
+              <th>Science Score</th>
+              <th>English Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.id}</td>
+                <td>{item.first_name}</td>
+                <td>{item.last_name}</td>
+                <td>{item.math_score}</td>
+                <td>{item.science_score}</td>
+                <td>{item.english_score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      <InsertModal show={showInsert} onHide={() => setShowInsert(false)} />
-      <QueryModal show={showQuery} onHide={() => setShowQuery(false)} />
-      <UpdateModal show={showUpdate} onHide={() => setShowUpdate(false)} />
-      <DeleteModal show={showDelete} onHide={() => setShowDelete(false)} />
-    </Container>
+      {/* ใช้ Component Modal สำหรับการ Insert ข้อมูล */}
+      <InsertModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleSubmit}
+        formData={formData}
+        handleChange={handleChange}
+      />
+    </div>
   );
 }
 
-export default App;
+export default DatabasePage;

@@ -1,24 +1,40 @@
-.container {
-    display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
-    height: 100vh; /* Set the container height to the viewport height */
-  }
-  
-  /* Additional styles for the content */
-  .content {
-    text-align: center;
-  }
-  
-  /* Style for the form inputs */
-  form {
-    margin-bottom: 20px;
-  }
-  
-  /* Style for the table */
-  table {
-    width: 80%;
-    border-collapse: collapse;
-    margin: 0 auto; /* Center the table horizontally */
-  }
-  
+.button-group {
+  margin-bottom: 10px;
+}
+
+.button-group button {
+  margin-right: 5px;
+}
+
+.table-container {
+  border: 1px solid white;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white; /* สีพื้นหลังของตาราง */
+  color: black; /* เปลี่ยนสีตัวหนังสือในตารางเป็นสีดำ */
+}
+
+.table th,
+.table td {
+  border: 1px solid white;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: left;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: white; /* สีพื้นหลังของแถวเลขคู่ */
+}
+
+.table tbody tr:hover {
+  background-color: #f2f2f2; /* เปลี่ยนสีเมื่อโฮเวอร์แถว */
+}

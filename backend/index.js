@@ -1,6 +1,5 @@
 var express = require('express')
 var cors = require('cors')
-const mysql = require('mysql2');
 const port = process.env.PORT || 5000
 const MySQLConnector = require("./MySQLConnector");
 
@@ -221,6 +220,7 @@ app.post("/create", async (req, res) => {
     });
   }
 });
+
 
 app.post("/insertData", async (req, res) => {
   const student = req.body;

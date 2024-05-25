@@ -1,97 +1,41 @@
+// InsertModal.js
 import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
 
-function InsertModal({ show, onHide }) {
-  // State for each form field
-  const [studentId, setStudentId] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [mathScore, setMathScore] = useState('');
-  const [scienceScore, setScienceScore] = useState('');
-  const [englishScore, setEnglishScore] = useState('');
+function InsertModal({ isOpen, onClose, onSubmit }) {
+  const [formData, setFormData] = useState({
+    student_id: '',
+    first_name: '',
+    last_name: '',
+    math_score: '',
+    science_score: '',
+    english_score: ''
+  });
 
-  const handleInsert = () => {
-    // Log the form data
-    console.log({
-      studentId,
-      firstName,
-      lastName,
-      mathScore,
-      scienceScore,
-      englishScore
-    });
-    // Close the modal
-    onHide();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+    onClose();
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
-        <Modal.Title>Insert Data</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group>
-            <Form.Label>Student ID</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter student ID" 
-              value={studentId} 
-              onChange={(e) => setStudentId(e.target.value)} 
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>First Name</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter first name" 
-              value={firstName} 
-              onChange={(e) => setFirstName(e.target.value)} 
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter last name" 
-              value={lastName} 
-              onChange={(e) => setLastName(e.target.value)} 
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Math Score</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter math score" 
-              value={mathScore} 
-              onChange={(e) => setMathScore(e.target.value)} 
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Science Score</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter science score" 
-              value={scienceScore} 
-              onChange={(e) => setScienceScore(e.target.value)} 
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>English Score</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter english score" 
-              value={englishScore} 
-              onChange={(e) => setEnglishScore(e.target.value)} 
-            />
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>Close</Button>
-        <Button variant="primary" onClick={handleInsert}>Insert</Button>
-      </Modal.Footer>
-    </Modal>
+    <>
+      {isOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={onClose}>&times;</span>
+            <h2>Insert Data</h2>
+            <form onSubmit={handleSubmit}>
+              {/* Form fields */}
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
